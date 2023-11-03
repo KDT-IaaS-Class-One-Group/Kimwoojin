@@ -1,1 +1,1 @@
-{"header":{"hamburgerMenu":["Home","Profile","Settings","Logout"],"logo":"🌐","promptInputPlaceholder":"Enter your message here..."},"mainContent":{"inputRecords":[{"postData":{"\"message : null\"":""}}],"userInfo":{"name":"John Doe","status":"Online","avatar":"👤"}}}
+{"header":{"hamburgerMenu":["Home","Profile","Settings","Logout"],"logo":"🌐","promptInputPlaceholder":"Enter your message here..."},"mainContent":{"inputRecords":[{"postData":{"message":""}}],"userInfo":{"name":"John Doe","status":"Online","avatar":"👤"}}}

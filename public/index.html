@@ -17,22 +17,31 @@
     </ul>
   </nav>
   
-  <form id="inputs"> 
-    <input type="text" id="prompt-input" name="userInput">
+  <form method="POST" id="inputs"> 
+    <input type="text" id="prompt-input" name="message">
     <button id="send">확인</button>
   </form> 
   <div id="prompt-output"></div>
   <script>
+  const form = document.getElementById('inputs');
+  form.addEventListener('submit', (e) => {
+      e.preventDefault();
+    });
+
+  const formData = new FormData(form)
+  const urlData = new URLSearchParams(formData);
 
   const sendData = document.getElementById('send')
   const inputMessage = document.getElementById('prompt-input').value
-    sendData.addEventListener('click', ()=>{
-    fetch('/', {
+  sendData.addEventListener('click', ()=>{
+    fetch('/data', {
       method : 'POST',
-      headers : {"Content-Type": "application/json"},
-      body : JSON.stringify({
-        "message" : inputMessage
-      })
+      headers : {"Content-Type": "application/x-www-form-urlencoded"},
+      body : urlData
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data)
     })
   })
   
@@ -70,7 +79,6 @@
   })
 
 
-fetch()
 
 
 
