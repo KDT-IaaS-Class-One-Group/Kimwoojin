@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <button id="hamburger-button"></button>
+  <nav class="hamburger">
+    <ul>
+      <li id="menu0"></li>
+      <li id="menu1"></li>
+      <li id="menu2"></li>
+      <li id="menu3"></li>
+    </ul>
+  </nav>
+  
+  <form id="inputs"> 
+    <input type="text" id="prompt-input" name="userInput">
+    <button id="send">확인</button>
+  </form> 
+  <div id="prompt-output"></div>
+  <script>
+
+  const sendData = document.getElementById('send')
+  const inputMessage = document.getElementById('prompt-input').value
+    sendData.addEventListener('click', ()=>{
+    fetch('/', {
+      method : 'POST',
+      headers : {"Content-Type": "application/json"},
+      body : JSON.stringify({
+        "message" : inputMessage
+      })
+    })
+  })
+  
+  
+  // .then(response => response.text())
+  // .then(data => {
+  //   const outputData = document.getElementById('prompt-output');
+  //   const promtptInput = document.getElementById('prompt-input').value
+  //     outputData.innerHTML += `<p>메모 : ${promtptInput}</p>`
+  //    })
+
+
+
+  fetch("/main.json")
+  .then((response) => response.json())
+  .then((data) => {
+    const header = data.header;
+    let menu1 = document.getElementById('menu0')
+    let menu2 = document.getElementById('menu1')
+    let menu3 = document.getElementById('menu2')
+    let menu4 = document.getElementById('menu3')
+    menu1.textContent = header.hamburgerMenu[0]
+    menu2.textContent = header.hamburgerMenu[1]
+    menu3.textContent = header.hamburgerMenu[2]
+    menu4.textContent = header.hamburgerMenu[3]
+    let hamburgerButton = document.getElementById('hamburger-button')
+    hamburgerButton.textContent = header.logo
+  });
+  
+
+  let hamburgerButton = document.getElementById('hamburger-button')
+  let hamburger = document.querySelector('.hamburger')
+  hamburgerButton.addEventListener('click', ()=>{
+    hamburger.classList.toggle('open')
+  })
+
+
+fetch()
+
+
+
+
+
+  </script>
+</body>
+</html>
