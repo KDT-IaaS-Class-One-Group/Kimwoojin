@@ -76,8 +76,10 @@ function getCurrentTimestamp() {
   .then((data) => {
     const header = data.header;
     const hamburgerMenu = header.hamburgerMenu;
+    const promptInputPlaceholder = header.promptInputPlaceholder;
     const menuList = document.getElementById('menu-list');
-
+    const promptInput = document.getElementById('prompt-input');
+    promptInput.placeholder = promptInputPlaceholder;
     hamburgerMenu.forEach((menuText, index) => {
       const menuItem = document.createElement('li');
       menuItem.textContent = menuText;
@@ -91,6 +93,8 @@ function getCurrentTimestamp() {
     hamburgerButton.addEventListener('click', () => {
       hamburger.classList.toggle('open');
     });
+    
+    
   });
   </script>
 </body>
