@@ -22,6 +22,13 @@
     <button id="send">확인</button>
   </form>
   <div id="prompt-output"></div>
+  <div id="user-info">
+    <p><strong>Name:</strong> <span id="user-name"></span></p>
+    <p><strong>Status:</strong> <span id="user-status"></span></p>
+    <p><strong>Avatar:</strong> <span id="user-avatar"></span></p>
+  </div>
+
+
   <script>
  const form = document.getElementById('inputs');
 const promptOutput = document.getElementById('prompt-output');
@@ -75,11 +82,24 @@ function getCurrentTimestamp() {
   .then((response) => response.json())
   .then((data) => {
     const header = data.header;
+    const userInfo = data.mainContent.userInfo;
     const hamburgerMenu = header.hamburgerMenu;
     const promptInputPlaceholder = header.promptInputPlaceholder;
     const menuList = document.getElementById('menu-list');
     const promptInput = document.getElementById('prompt-input');
+    const userName = document.getElementById('user-name');
+    const userStatus = document.getElementById('user-status');
+    const userAvatar = document.getElementById('user-avatar');
+
+    userName.textContent = userInfo.name;
+    userStatus.textContent = userInfo.status;
+    userAvatar.textContent = userInfo.avatar;
+    
+    
     promptInput.placeholder = promptInputPlaceholder;
+
+
+
     hamburgerMenu.forEach((menuText, index) => {
       const menuItem = document.createElement('li');
       menuItem.textContent = menuText;
@@ -92,6 +112,7 @@ function getCurrentTimestamp() {
     let hamburger = document.querySelector('.hamburger');
     hamburgerButton.addEventListener('click', () => {
       hamburger.classList.toggle('open');
+      
     });
     
     
