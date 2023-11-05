@@ -28,15 +28,17 @@ router.get("/", (req, res) => {
 });
 
 router.post("/data", (req, res) => {
-  const postData = req.body.message;
-  console.log(postData);
+  const type = req.body.type;
+  const message = req.body.message;
+  const timestamp = req.body.timestamp;
 
+  const jsonFilePath = "./public/main.json";
   const jsonFile = fs.readFileSync(jsonFilePath);
   const parseJsonFile = JSON.parse(jsonFile);
 
   // 기존 데이터를 가져와서 새로운 데이터를 추가합니다.
   const inputRecords = parseJsonFile.mainContent.inputRecords || [];
-  inputRecords.push({ message: postData });
+  inputRecords.push({ type, message, timestamp });
   parseJsonFile.mainContent.inputRecords = inputRecords;
 
   fs.writeFileSync(jsonFilePath, JSON.stringify(parseJsonFile, null, 2));
@@ -44,5 +46,4 @@ router.post("/data", (req, res) => {
   // 응답을 보냅니다.
   res.send({ success: true });
 });
-
 module.exports = router;

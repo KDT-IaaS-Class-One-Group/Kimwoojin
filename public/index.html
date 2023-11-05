@@ -13,45 +13,62 @@
   </ul>
   </nav>
   
-  <form method="POST" id="inputs"> 
+  <form method="POST" id="inputs">
+    <select id="message-type">
+      <option value="user">User</option>
+      <option value="assistant">Assistant</option>
+    </select>
     <input type="text" id="prompt-input" name="message">
     <button id="send">확인</button>
-  </form> 
+  </form>
   <div id="prompt-output"></div>
   <script>
-    const form = document.getElementById('inputs');
-    const promptOutput = document.getElementById('prompt-output');
+ const form = document.getElementById('inputs');
+const promptOutput = document.getElementById('prompt-output');
 
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-    });
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+});
 
-    const sendData = document.getElementById('send');
+const sendData = document.getElementById('send');
 
-    sendData.addEventListener('click', () => {
-      const inputMessage = document.getElementById('prompt-input').value;
+sendData.addEventListener('click', () => {
+  const messageType = document.getElementById('message-type').value;
+  const inputMessage = document.getElementById('prompt-input').value;
+  const timestamp = getCurrentTimestamp();
 
-      // 데이터를 서버로 보냅니다.
-      fetch('/data', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: `message=${inputMessage}`,
-      })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-        // 화면에 새로운 메시지를 표시합니다.
-        const newMessage = document.createElement('p');
-        newMessage.textContent = `${inputMessage}`;
-        promptOutput.appendChild(newMessage);
-        // 입력 필드를 비웁니다.
-        document.getElementById('prompt-input').value = '';
-      });
-    });
+  // 데이터를 서버로 보냅니다.
+  fetch('/data', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: `type=${messageType}&message=${inputMessage}&timestamp=${timestamp}`,
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+    // 화면에 새로운 메시지를 표시합니다.
+    const newMessage = document.createElement('p');
+    newMessage.textContent = `${messageType} : ${inputMessage}\u00A0\u00A0\u00A0\u00A0\u00A0${timestamp}`;
+    promptOutput.appendChild(newMessage);
+    // 입력 필드를 비웁니다.
+    document.getElementById('prompt-input').value = '';
+  });
+});
 
+function getCurrentTimestamp() {
+  const now = new Date();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  const ampm = hours >= 12 ? 'PM' : 'AM';
 
+  // 시간을 12시간 형식으로 변환
+  const displayHours = hours % 12 || 12;
+  const displayMinutes = minutes.toString().padStart(2, '0');
+
+  return `${displayHours}:${displayMinutes} ${ampm}`;
+}
 
 
     fetch("/main.json")
