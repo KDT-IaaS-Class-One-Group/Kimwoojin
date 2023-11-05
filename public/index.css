@@ -23,6 +23,12 @@ body{
   left: 1400px;
 }
 
+#menu-list >li {
+  list-style: none;
+  border: 1px solid black;
+  font-size : 20px
+}
+
 #hamburger-button{
   position :absolute;
   top:0px;
@@ -32,9 +38,17 @@ body{
 .hamburger {
   position : absolute;
   top : 0px;
+  left: 900px;
   display: none;
 }
 
 .hamburger.open{
   display:block;
+}
+
+
+#user-info {
+  position: absolute;
+  top: 85vh;
+  left:5vw;
 }

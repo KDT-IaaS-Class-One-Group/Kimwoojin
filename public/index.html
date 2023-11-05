@@ -78,7 +78,7 @@ function getCurrentTimestamp() {
 }
 
 
-    fetch("/main.json")
+ fetch("/main.json")
   .then((response) => response.json())
   .then((data) => {
     const header = data.header;
@@ -90,6 +90,7 @@ function getCurrentTimestamp() {
     const userName = document.getElementById('user-name');
     const userStatus = document.getElementById('user-status');
     const userAvatar = document.getElementById('user-avatar');
+    
 
     userName.textContent = userInfo.name;
     userStatus.textContent = userInfo.status;
@@ -114,9 +115,20 @@ function getCurrentTimestamp() {
       hamburger.classList.toggle('open');
       
     });
-    
-    
   });
+  fetch("/style.json")
+  .then((response) => response.json())
+  .then((data) => {
+    const colors = data.colors;
+    const fonts = data.fonts;
+
+    // 동적으로 스타일 적용
+    document.body.style.backgroundColor = colors.background;
+    document.body.style.color = colors.text;
+    document.body.style.fontFamily = fonts.main;
+  });
+
+
   </script>
 </body>
 </html>
