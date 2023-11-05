@@ -9,12 +9,8 @@
 <body>
   <button id="hamburger-button"></button>
   <nav class="hamburger">
-    <ul>
-      <li id="menu0"></li>
-      <li id="menu1"></li>
-      <li id="menu2"></li>
-      <li id="menu3"></li>
-    </ul>
+  <ul id="menu-list">
+  </ul>
   </nav>
   
   <form method="POST" id="inputs"> 
@@ -48,34 +44,37 @@
         console.log(data);
         // 화면에 새로운 메시지를 표시합니다.
         const newMessage = document.createElement('p');
-        newMessage.textContent = `메시지: ${inputMessage}`;
+        newMessage.textContent = `${inputMessage}`;
         promptOutput.appendChild(newMessage);
         // 입력 필드를 비웁니다.
         document.getElementById('prompt-input').value = '';
       });
     });
 
+
+
+
     fetch("/main.json")
-    .then((response) => response.json())
-    .then((data) => {
-      const header = data.header;
-      let menu1 = document.getElementById('menu0');
-      let menu2 = document.getElementById('menu1');
-      let menu3 = document.getElementById('menu2');
-      let menu4 = document.getElementById('menu3');
-      menu1.textContent = header.hamburgerMenu[0];
-      menu2.textContent = header.hamburgerMenu[1];
-      menu3.textContent = header.hamburgerMenu[2];
-      menu4.textContent = header.hamburgerMenu[3];
-      let hamburgerButton = document.getElementById('hamburger-button');
-      hamburgerButton.textContent = header.logo;
+  .then((response) => response.json())
+  .then((data) => {
+    const header = data.header;
+    const hamburgerMenu = header.hamburgerMenu;
+    const menuList = document.getElementById('menu-list');
+
+    hamburgerMenu.forEach((menuText, index) => {
+      const menuItem = document.createElement('li');
+      menuItem.textContent = menuText;
+      menuList.appendChild(menuItem);
     });
 
     let hamburgerButton = document.getElementById('hamburger-button');
+    hamburgerButton.textContent = header.logo;
+
     let hamburger = document.querySelector('.hamburger');
     hamburgerButton.addEventListener('click', () => {
       hamburger.classList.toggle('open');
     });
+  });
   </script>
 </body>
 </html>
