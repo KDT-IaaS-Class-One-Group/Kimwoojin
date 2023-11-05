@@ -1,1 +1,33 @@
-{"header":{"hamburgerMenu":["Home","Profile","Settings","Logout"],"logo":"🌐","promptInputPlaceholder":"Enter your message here..."},"mainContent":{"inputRecords":[{"postData":{"message":""}}],"userInfo":{"name":"John Doe","status":"Online","avatar":"👤"}}}
+{
+  "header": {
+    "hamburgerMenu": [
+      "Home",
+      "Profile",
+      "Settings",
+      "Logout"
+    ],
+    "logo": "🌐",
+    "promptInputPlaceholder": "Enter your message here..."
+  },
+  "mainContent": {
+    "inputRecords": [
+      {
+        "message": "4545"
+      },
+      {
+        "message": "565565"
+      },
+      {
+        "message": "23424234"
+      },
+      {
+        "message": "4455"
+      }
+    ],
+    "userInfo": {
+      "name": "John Doe",
+      "status": "Online",
+      "avatar": "👤"
+    }
+  }
+}

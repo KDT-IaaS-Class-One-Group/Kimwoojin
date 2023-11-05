@@ -23,67 +23,59 @@
   </form> 
   <div id="prompt-output"></div>
   <script>
-  const form = document.getElementById('inputs');
-  form.addEventListener('submit', (e) => {
+    const form = document.getElementById('inputs');
+    const promptOutput = document.getElementById('prompt-output');
+
+    form.addEventListener('submit', (e) => {
       e.preventDefault();
     });
 
-  const formData = new FormData(form)
-  const urlData = new URLSearchParams(formData);
+    const sendData = document.getElementById('send');
 
-  const sendData = document.getElementById('send')
-  const inputMessage = document.getElementById('prompt-input').value
-  sendData.addEventListener('click', ()=>{
-    fetch('/data', {
-      method : 'POST',
-      headers : {"Content-Type": "application/x-www-form-urlencoded"},
-      body : urlData
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data)
-    })
-  })
-  
-  
-  // .then(response => response.text())
-  // .then(data => {
-  //   const outputData = document.getElementById('prompt-output');
-  //   const promtptInput = document.getElementById('prompt-input').value
-  //     outputData.innerHTML += `<p>메모 : ${promtptInput}</p>`
-  //    })
+    sendData.addEventListener('click', () => {
+      const inputMessage = document.getElementById('prompt-input').value;
 
+      // 데이터를 서버로 보냅니다.
+      fetch('/data', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `message=${inputMessage}`,
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        // 화면에 새로운 메시지를 표시합니다.
+        const newMessage = document.createElement('p');
+        newMessage.textContent = `메시지: ${inputMessage}`;
+        promptOutput.appendChild(newMessage);
+        // 입력 필드를 비웁니다.
+        document.getElementById('prompt-input').value = '';
+      });
+    });
 
+    fetch("/main.json")
+    .then((response) => response.json())
+    .then((data) => {
+      const header = data.header;
+      let menu1 = document.getElementById('menu0');
+      let menu2 = document.getElementById('menu1');
+      let menu3 = document.getElementById('menu2');
+      let menu4 = document.getElementById('menu3');
+      menu1.textContent = header.hamburgerMenu[0];
+      menu2.textContent = header.hamburgerMenu[1];
+      menu3.textContent = header.hamburgerMenu[2];
+      menu4.textContent = header.hamburgerMenu[3];
+      let hamburgerButton = document.getElementById('hamburger-button');
+      hamburgerButton.textContent = header.logo;
+    });
 
-  fetch("/main.json")
-  .then((response) => response.json())
-  .then((data) => {
-    const header = data.header;
-    let menu1 = document.getElementById('menu0')
-    let menu2 = document.getElementById('menu1')
-    let menu3 = document.getElementById('menu2')
-    let menu4 = document.getElementById('menu3')
-    menu1.textContent = header.hamburgerMenu[0]
-    menu2.textContent = header.hamburgerMenu[1]
-    menu3.textContent = header.hamburgerMenu[2]
-    menu4.textContent = header.hamburgerMenu[3]
-    let hamburgerButton = document.getElementById('hamburger-button')
-    hamburgerButton.textContent = header.logo
-  });
-  
-
-  let hamburgerButton = document.getElementById('hamburger-button')
-  let hamburger = document.querySelector('.hamburger')
-  hamburgerButton.addEventListener('click', ()=>{
-    hamburger.classList.toggle('open')
-  })
-
-
-
-
-
-
-
+    let hamburgerButton = document.getElementById('hamburger-button');
+    let hamburger = document.querySelector('.hamburger');
+    hamburgerButton.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+    });
   </script>
 </body>
 </html>
