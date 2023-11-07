@@ -10,7 +10,23 @@
     "promptInputPlaceholder": "Enter your message here..."
   },
   "mainContent": {
-    "inputRecords": [],
+    "inputRecords": [
+      {
+        "type": "user",
+        "message": "12321",
+        "timestamp": "4:29 PM"
+      },
+      {
+        "type": "user",
+        "message": "454454",
+        "timestamp": "4:29 PM"
+      },
+      {
+        "type": "user",
+        "message": "12321323",
+        "timestamp": "4:29 PM"
+      }
+    ],
     "userInfo": {
       "name": "John Doe",
       "status": "Online",
