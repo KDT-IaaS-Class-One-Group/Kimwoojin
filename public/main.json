@@ -13,18 +13,13 @@
     "inputRecords": [
       {
         "type": "user",
-        "message": "12321",
-        "timestamp": "4:29 PM"
+        "message": "123213",
+        "timestamp": "2:30 PM"
       },
       {
         "type": "user",
-        "message": "454454",
-        "timestamp": "4:29 PM"
-      },
-      {
-        "type": "user",
-        "message": "12321323",
-        "timestamp": "4:29 PM"
+        "message": "3434",
+        "timestamp": "2:30 PM"
       }
     ],
     "userInfo": {
