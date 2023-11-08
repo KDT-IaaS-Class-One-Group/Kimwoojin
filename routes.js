@@ -36,14 +36,16 @@ router.post("/data", (req, res) => {
   const jsonFile = fs.readFileSync(jsonFilePath);
   const parseJsonFile = JSON.parse(jsonFile);
 
-  // 기존 데이터를 가져와서 새로운 데이터를 추가합니다.
-  const inputRecords = parseJsonFile.mainContent.inputRecords || [];
-  inputRecords.push({type, message, timestamp});
-  parseJsonFile.mainContent.inputRecords = inputRecords;
+  // 논리연산자 ||를 이용해 첫 피연산자의 값이존재(true)하면 그 값을 사용하고 아니면 빈 배열을 사용한다.
+  const input = parseJsonFile.mainContent.inputRecords || [];
+  // req.body로 받은 type, message, timestamp를 값으로 갖는 객체를 inputRecords 배열에 추가한다.
+  input.push({type, message, timestamp});
+  // 객체로 파싱된 json파일의 inputRecords에 input 값을 업데이트한다.
+  parseJsonFile.mainContent.inputRecords = input;
 
+  // 업데이트된 객체 내용을 json문자열로 변환하여 해당 경로에 파일을 다시 써준다.
   fs.writeFileSync(jsonFilePath, JSON.stringify(parseJsonFile, null, 2));
 
-  // 응답을 보냅니다.
   res.send({success: true});
 });
 module.exports = router;
